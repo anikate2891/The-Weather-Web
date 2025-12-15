@@ -1,4 +1,7 @@
 // Weather Dashboard Component
+let input = document.querySelector('input');
+let btn = document.querySelector('button');
+let p = document.querySelector('p');
 
 async function getWeather(city) {
     try {
@@ -12,14 +15,16 @@ async function getWeather(city) {
         let realdata = await rawData.json();
         let temp = realdata.main.temp;
 
-        if (temp < 0) {console.log(`Freezing weather: ${temp}°C.`)}
-        else if(temp > 35){console.log(`Hot weather: ${temp}°C.`)}
-        else{console.log(`The temperature in ${city} is ${temp}°C.`)}
+        if (temp < 0) {p.textContent = `Freezing weather: ${temp}°C.`}
+        else if(temp > 35){p.textContent = `Hot weather: ${temp}°C.`}
+        else{p.textContent = `The temperature in ${city} is ${temp}°C.`}
 
     } catch (err) {
-        console.log(err.message)
+        p.textContent = 'City not found';
     }
+    
 };
 
-
-getWeather('leh');
+btn.addEventListener('click', () => {
+    getWeather(input.value);
+});
